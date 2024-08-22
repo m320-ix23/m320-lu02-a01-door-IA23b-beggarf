@@ -32,7 +32,7 @@ class Door:
         Methode für das öffnen der Türe.
         Das ist aber nur möglich, wenn die Türe nicht verriegelt ist.
         """
-        if self._door_is_locked == False:
+        if not self._door_is_locked:
             self._door_is_open = True
 
     def close_the_door(self):
@@ -48,7 +48,7 @@ class Door:
         Das ist nur möglich, wenn die Türe nicht offen ist.
         Für das verriegeln ist aber das Türschloss zuständig. Es weiss wie das geht.
         """
-        if self._door_is_open == False:
+        if not self._door_is_open:
             self._door_is_locked = self._the_door_lock.lock()
 
     def unlock_the_door(self):
@@ -58,14 +58,14 @@ class Door:
         Für das entriegeln ist aber das Türschloss zuständig. Es weiss wie das geht.
         """
         if self._door_is_locked:
-            self._door_is_locked = self._the_door_lock.unlock()
+            self._door_is_locked = not self._the_door_lock.unlock()
 
     def test(self):
         """
         schreibt alle Attribute in den StdOut
         """
-        print(f'Türfarbe {self.color}'
-              f'Türe offen: {self._door_is_open}'
+        print(f'Türfarbe: {self.color}\n'
+              f'Türe offen: {self._door_is_open}\n'
               f'Türe verriegelt: {self._door_is_locked}')
 
     # Am Ende folgen die getter- und setter-Methoden für die Attribute der Klasse
@@ -79,7 +79,7 @@ class Door:
         return self._door_is_open
 
     @property
-    def door_ist_locked(self):
+    def door_is_locked(self):
         """
         getter-Methode für den Zustand door_is_locked
         :return: true, wenn die Türe verriegelt ist, sonst false
